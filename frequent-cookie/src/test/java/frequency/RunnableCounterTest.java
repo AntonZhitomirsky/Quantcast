@@ -2,7 +2,7 @@ package frequency;
 
 import org.junit.Test;
 
-class RunnableCounterTest {
+public class RunnableCounterTest {
 
   public final RunnableCounter rc = new RunnableCounter();
 
