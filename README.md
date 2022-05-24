@@ -32,7 +32,7 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
-  -d          flag which preceedes the date of the search space in yyyy-mm-dd format'
+  -d          flag which preceedes the date of the search space in yyyy-mm-dd format
 ```
 
 ### output:
