@@ -28,4 +28,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file frequent-cookie/pom.xml
       
-  
+  test:
+    needs: build
+    script:
+    - mvn test -Dtest=RunnableCounterTest
