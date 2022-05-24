@@ -2,11 +2,6 @@ apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 
-group = 'uk.ac.ic.doc'
-version = '1.0.0'
-
-description = """Mock Objects Exercise"""
-
 java {
   toolchain {
     languageVersion.set(JavaLanguageVersion.of(16))
