@@ -3,8 +3,9 @@ package file;
 import entry.TimeStampedCookieEntry;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
-public interface CookieFileInterface {
+public interface CookieFileInterface<E> {
 
   // extracts information about a file from a given File.
   void read(File file) throws FileNotFoundException;
@@ -14,4 +15,6 @@ public interface CookieFileInterface {
 
   // given a grammar notation rule translates to regex and returns new generated parsing rule
   String setRule(String rule);
+
+  List<E> getLines();
 }

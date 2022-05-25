@@ -11,10 +11,12 @@ public class TimeStampedCookieEntryTest {
 
   @Test
   public void timeStampIsCorrectlyConvertedTest() {
-    TimeStampedCookieEntry timeStamp = new TimeStampedCookieEntry("cookie", "2018-12-08T22:03:00+00:00");
-    TimeStampedCookieEntry timeStamp2 = new TimeStampedCookieEntry("cookie", Date.valueOf(
-        LocalDate.of(2018, 12, 8)));
+    TimeStampedCookieEntry timeStamp = new TimeStampedCookieEntry("cookie",
+        "2018-12-08T22:03:00+00:00");
+    Date convertedDate = Date.valueOf(LocalDate.of(2018, 12, 8));
+    TimeStampedCookieEntry timeStamp2 = new TimeStampedCookieEntry("cookie", convertedDate);
     assertThat(timeStamp.getTimeStamp(), is(timeStamp2.getTimeStamp()));
+    assertThat(timeStamp.getTimeStamp(), is(convertedDate));
   }
 
 }

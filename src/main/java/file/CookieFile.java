@@ -41,4 +41,9 @@ public class CookieFile<E extends TimeStampedCookieEntry> implements CookieFileI
   public E parse(String line) {
     return stringParser.parse(line);
   }
+
+  @Override
+  public List<E> getLines() {
+    return lines;
+  }
 }
