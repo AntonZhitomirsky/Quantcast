@@ -3,20 +3,15 @@ package file;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileParser<E extends Entry> implements Parser<E> {
+public class StringParser<E extends Entry> implements Parser<E> {
 
   private String rule;
 
-  public FileParser() {
-  }
-
   @Override
   public String setRule(String rule) {
-    // convert rule into regex to parse
-    // operates on the assumption that the rule is only ever going to be cookie(delimiter)timestamp
-    String regex = "([a-zA-Z\\d]+)"; // regex to separate tokens from punctuation delimiters
+    String regex = "([a-zA-Z\\d]+)";                  // regex to separate tokens from punctuation delimiters
     Matcher m = Pattern.compile(regex).matcher(rule); // applies regex to rule
-    this.rule = m.replaceAll("(\\.*)");
+    this.rule = m.replaceAll("(\\.*)");     // replaces all matching groups with (\\.*)
     return this.rule;
   }
 
@@ -28,12 +23,7 @@ public class FileParser<E extends Entry> implements Parser<E> {
     if (m.matches()) {
       return (E) new TimeStampedCookieEntry(m.group(1), m.group(2));
     }
-    // no match found, fine is not well-defined
+    // no match found, line is not well-defined/ doesn't mach the pattern
     return null;
   }
-
-  public String getRule() {
-    return rule;
-  }
-
 }

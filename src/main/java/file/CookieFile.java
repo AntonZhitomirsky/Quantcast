@@ -6,11 +6,11 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class CookieFile<E extends Entry> implements CookieFileInterface {
-
-  private final FileParser<E> fileParser = new FileParser<>();
   // CookieFile is a generic because in future applications one might have time stamp, cookie and
   // geographical position, or maybe more metadata. In this case only the generic type must
   // change
+
+  private final StringParser<E> stringParser = new StringParser<>();
 
   private String data;
   private static final String CSV_REGEX = ".*\\.csv";
@@ -20,7 +20,7 @@ public class CookieFile<E extends Entry> implements CookieFileInterface {
   public void read(File file) throws FileNotFoundException {
     // read first line for the parsing pattern
     Scanner reader = new Scanner(file);
-    fileParser.setRule(reader.nextLine());
+    stringParser.setRule(reader.nextLine());
     // read the rest for cookie and timestamp information
     while (reader.hasNextLine()) {
       data += reader.nextLine();
@@ -32,7 +32,7 @@ public class CookieFile<E extends Entry> implements CookieFileInterface {
   public String setRule(String rule) {
     // convert rule into regex to parse
     // operates on the assumption that the rule is only ever going to be cookie(delimiter)timestamp
-    return fileParser.setRule(rule);
+    return stringParser.setRule(rule);
   }
 
   @Override
@@ -47,6 +47,6 @@ public class CookieFile<E extends Entry> implements CookieFileInterface {
     // applies the parsing pattern and returns an entry
     // for now, since assumption: cookie,timestamp always return a TimeStampedCookieEntry
     // no match found, fine is not well-defined
-    return fileParser.parse(line);
+    return stringParser.parse(line);
   }
 }

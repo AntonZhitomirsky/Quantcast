@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class FileParserTest {
 
-  public Parser<TimeStampedCookieEntry> parser = new FileParser<>();
+  public Parser<TimeStampedCookieEntry> parser = new StringParser<>();
 
   // generates a valid parser regex rule
   @Test
