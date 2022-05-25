@@ -3,7 +3,9 @@ package file;
 import entry.TimeStampedCookieEntry;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import parser.Parser;
 
 public class CookieFile<E extends TimeStampedCookieEntry> implements CookieFileInterface {
@@ -12,34 +14,33 @@ public class CookieFile<E extends TimeStampedCookieEntry> implements CookieFileI
   // change
 
   private final Parser<E> stringParser;
-  private List<E> lines;
+  private List<E> lines = new LinkedList<>();
 
-  public CookieFile(Parser<E> stringParser) {
+  public CookieFile(Parser<E> stringParser, String path) {
     this.stringParser = stringParser;
+    readFile(path);
   }
 
-  @Override
-  public void read(File file) throws FileNotFoundException {
-//    // read first line for the parsing pattern
-//    Scanner reader = new Scanner(file);
-//    stringParser.setRule(reader.nextLine());
-//    // read the rest for cookie and timestamp information
-//    while (reader.hasNextLine()) {
-//      data += reader.nextLine();
-//    }
-//    reader.close();
+  public CookieFile(Parser<E> stringParser, File file) {
+    this.stringParser = stringParser;
+    readFile(file);
   }
 
-  @Override
-  public String setRule(String rule) {
-    // convert rule into regex to parse
-    // operates on the assumption that the rule is only ever going to be cookie(delimiter)timestamp
-    return stringParser.setRule(rule);
+  private void readFile(File file) {
+    try {
+      Scanner reader = new Scanner(file);
+      stringParser.setRule(reader.nextLine());
+      while (reader.hasNextLine()) {
+        lines.add(stringParser.parse(reader.nextLine()));
+      }
+      reader.close();
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
   }
 
-  @Override
-  public E parse(String line) {
-    return stringParser.parse(line);
+  private void readFile(String path) {
+    readFile(new File(path));
   }
 
   @Override
