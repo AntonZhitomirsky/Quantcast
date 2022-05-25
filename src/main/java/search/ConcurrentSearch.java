@@ -27,7 +27,7 @@ public class ConcurrentSearch implements SmallestCache {
 
     int numberOfThreads = 2;
     ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
-
+    
     List<TimeStampedCookieEntry> head = lines.subList(0, lines.size() / 2);
     List<TimeStampedCookieEntry> tail = lines.subList(lines.size() / 2, lines.size());
 
