@@ -19,7 +19,6 @@ public class CookieFileTest {
   public TemporaryFolder folder = new TemporaryFolder();
   @Rule
   public JUnitRuleMockery context = new JUnitRuleMockery();
-  public final String path = "test.csv";
   private File tempCookieFile;
   private final static int lines = 5;
   private final static String someRule = "---";
@@ -45,7 +44,6 @@ public class CookieFileTest {
 
   @Test
   public void readsAndConvertsLinesFromFileTest() {
-
     context.checking(new Expectations() {{
       exactly(1).of(parser).setRule("line0");
       will(returnValue(someRule));
@@ -54,8 +52,7 @@ public class CookieFileTest {
         will(returnValue(defaultCookieEntry));
       }
     }});
-
-    CookieFile<TimeStampedCookieEntry> cf = new CookieFile<>(parser, tempCookieFile);
+    new CookieFile<>(parser, tempCookieFile);
   }
 
 }

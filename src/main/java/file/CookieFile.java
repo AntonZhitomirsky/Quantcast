@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Scanner;
 import parser.Parser;
 
-public class CookieFile<E extends TimeStampedCookieEntry> implements CookieFileInterface {
+public class CookieFile<E extends TimeStampedCookieEntry> implements CookieFileInterface<E> {
   // CookieFile is a generic because in future applications one might have time stamp, cookie and
   // geographical position, or maybe more metadata. In this case only the generic type must
   // change
 
   private final Parser<E> stringParser;
-  private List<E> lines = new LinkedList<>();
+  private final List<E> lines = new LinkedList<>();
 
   public CookieFile(Parser<E> stringParser, String path) {
     this.stringParser = stringParser;
