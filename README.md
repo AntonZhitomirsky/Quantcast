@@ -1,5 +1,8 @@
 # Quantcast
-### Most popular cookie finder
+### Most frequent cookie finder
+
+### Disclamer:
+I have not been able to create a working exe file. But it can be ran nevertheless by running it through the src/main/java/Main.java file
 
 ---
 
