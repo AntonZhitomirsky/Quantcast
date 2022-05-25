@@ -1,9 +1,10 @@
-package file;
+package parser;
 
+import entry.TimeStampedCookieEntry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringParser<E extends Entry> implements Parser<E> {
+public class StringParser<E extends TimeStampedCookieEntry> implements Parser<E> {
 
   private String rule;
 

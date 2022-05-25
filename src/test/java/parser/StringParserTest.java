@@ -1,11 +1,12 @@
-package file;
+package parser;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import entry.TimeStampedCookieEntry;
 import org.junit.Test;
 
-public class FileParserTest {
+public class StringParserTest {
 
   public Parser<TimeStampedCookieEntry> parser = new StringParser<>();
 
@@ -23,9 +24,9 @@ public class FileParserTest {
   // from a line can extract timeStamp and cookie data
   @Test
   public void canApplyRegexParserToExtractTimeStampAndCookieData() {
-    String rule = parser.setRule("cookie,timestamp");
+    parser.setRule("cookie,timestamp");
     TimeStampedCookieEntry entry = parser.parse("mycookiehash,mytimestampdata");
     assertThat(entry.getCookie(), is("mycookiehash"));
-    assertThat(entry.getDate(), is("mytimestampdata"));
+    assertThat(entry.getTimeStamp(), is("mytimestampdata"));
   }
 }

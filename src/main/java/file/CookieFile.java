@@ -1,31 +1,33 @@
 package file;
 
+import entry.TimeStampedCookieEntry;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.regex.Pattern;
+import java.util.List;
+import parser.Parser;
 
-public class CookieFile<E extends Entry> implements CookieFileInterface {
+public class CookieFile<E extends TimeStampedCookieEntry> implements CookieFileInterface {
   // CookieFile is a generic because in future applications one might have time stamp, cookie and
   // geographical position, or maybe more metadata. In this case only the generic type must
   // change
 
-  private final StringParser<E> stringParser = new StringParser<>();
+  private final Parser<E> stringParser;
+  private List<E> lines;
 
-  private String data;
-  private static final String CSV_REGEX = ".*\\.csv";
-  private static final Pattern CSV_MATCHER = Pattern.compile(CSV_REGEX);
+  public CookieFile(Parser<E> stringParser) {
+    this.stringParser = stringParser;
+  }
 
   @Override
   public void read(File file) throws FileNotFoundException {
-    // read first line for the parsing pattern
-    Scanner reader = new Scanner(file);
-    stringParser.setRule(reader.nextLine());
-    // read the rest for cookie and timestamp information
-    while (reader.hasNextLine()) {
-      data += reader.nextLine();
-    }
-    reader.close();
+//    // read first line for the parsing pattern
+//    Scanner reader = new Scanner(file);
+//    stringParser.setRule(reader.nextLine());
+//    // read the rest for cookie and timestamp information
+//    while (reader.hasNextLine()) {
+//      data += reader.nextLine();
+//    }
+//    reader.close();
   }
 
   @Override
@@ -36,17 +38,7 @@ public class CookieFile<E extends Entry> implements CookieFileInterface {
   }
 
   @Override
-  public String data() {
-    assert data
-        != null : "data is null, either there is no data in the file or you forget to read first?";
-    return data;
-  }
-
-  @Override
   public E parse(String line) {
-    // applies the parsing pattern and returns an entry
-    // for now, since assumption: cookie,timestamp always return a TimeStampedCookieEntry
-    // no match found, fine is not well-defined
     return stringParser.parse(line);
   }
 }
